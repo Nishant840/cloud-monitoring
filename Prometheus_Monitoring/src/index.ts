@@ -2,11 +2,13 @@ import express from "express"
 import { requestCount } from "./monitoring/requestCount.js";
 import client from "prom-client"
 import { activeUserCount } from "./monitoring/activeRequestCount.js";
+import { requestCount_PerMs } from "./monitoring/histogram.js";
 
 const app = express()
 
 app.use(requestCount)
 app.use(activeUserCount)
+app.use(requestCount_PerMs);
 
 app.get("/user", (req,res)=>{
     res.json({
